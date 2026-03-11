@@ -75,14 +75,14 @@ const Navbar = () => {
           ) : (
             <>
               <Link
-                to="/login"
+                to="/auth/login"
                 className="btn btn-outline"
               >
                 Login
               </Link>
 
               <Link
-                to="/register"
+                to="/auth/register"
                 className="btn btn-primary"
               >
                 Register

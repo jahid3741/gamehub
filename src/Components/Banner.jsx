@@ -11,7 +11,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="carousel w-full h-[420px] rounded-xl">
+    <div className="carousel w-full h-[420px] rounded-xl mt-10">
 
       {games.map((game, index) => (
 
