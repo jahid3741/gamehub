@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "title": "PlayerUnknown's Battlegrounds (PUBG)",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg",
+    "category": "Battle Royale",
+    "downloadLink": "https://www.pubgmobile.com/",
+    "description": "PUBG is a battle royale shooter where 100 players fight to be the last person standing.",
+    "ratings": 4.5,
+    "developer": "Krafton"
+  },
+  {
+    "id": "2",
+    "title": "Grand Theft Auto V",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg",
+    "category": "Adventure",
+    "downloadLink": "https://www.rockstargames.com/gta-v",
+    "description": "GTA V is an open-world action game where players explore Los Santos and complete missions.",
+    "ratings": 4.9,
+    "developer": "Rockstar Games"
+  },
+ {
+  "id": "3",
+  "title": "Minecraft",
+  "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1672970/header.jpg",
+  "category": "Sandbox",
+  "downloadLink": "https://www.minecraft.net/",
+  "description": "Minecraft is a sandbox game where players build, explore, and survive in an infinite block world filled with creativity and adventure.",
+  "ratings": 4.8,
+  "developer": "Mojang"
+},
+  {
+    "id": "4",
+    "title": "The Witcher 3: Wild Hunt",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg",
+    "category": "RPG",
+    "downloadLink": "https://www.thewitcher.com/",
+    "description": "The Witcher 3 is an epic open-world RPG featuring monster hunting and deep storytelling.",
+    "ratings": 4.9,
+    "developer": "CD Projekt Red"
+  },
+  {
+    "id": "5",
+    "title": "Cyberpunk 2077",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
+    "category": "RPG",
+    "downloadLink": "https://www.cyberpunk.net/",
+    "description": "Cyberpunk 2077 is a futuristic open-world RPG set in Night City.",
+    "ratings": 4.6,
+    "developer": "CD Projekt Red"
+  },
+  {
+    "id": "6",
+    "title": "Counter-Strike 2",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
+    "category": "FPS",
+    "downloadLink": "https://store.steampowered.com/app/730/",
+    "description": "Counter-Strike is a competitive FPS game where teams battle in tactical missions.",
+    "ratings": 4.7,
+    "developer": "Valve"
+  },
+  {
+    "id": "7",
+    "title": "Red Dead Redemption 2",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
+    "category": "Adventure",
+    "downloadLink": "https://www.rockstargames.com/reddeadredemption2/",
+    "description": "Red Dead Redemption 2 is a cinematic open-world western adventure game.",
+    "ratings": 4.9,
+    "developer": "Rockstar Games"
+  },
+  {
+    "id": "8",
+    "title": "Elden Ring",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg",
+    "category": "RPG",
+    "downloadLink": "https://en.bandainamcoent.eu/elden-ring",
+    "description": "Elden Ring is a dark fantasy action RPG with a massive open world.",
+    "ratings": 4.8,
+    "developer": "FromSoftware"
+  },
+  {
+    "id": "9",
+    "title": "Fortnite",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg",
+    "category": "Battle Royale",
+    "downloadLink": "https://www.epicgames.com/fortnite/",
+    "description": "Fortnite is a popular battle royale game with building mechanics and fast gameplay.",
+    "ratings": 4.6,
+    "developer": "Epic Games"
+  },
+  {
+    "id": "10",
+    "title": "Apex Legends",
+    "coverPhoto": "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg",
+    "category": "Battle Royale",
+    "downloadLink": "https://www.ea.com/games/apex-legends",
+    "description": "Apex Legends is a hero-based battle royale shooter with unique characters.",
+    "ratings": 4.6,
+    "developer": "Respawn Entertainment"
+  }
+]
