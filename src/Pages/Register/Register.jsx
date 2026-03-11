@@ -5,15 +5,18 @@ import { FcGoogle } from "react-icons/fc";
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import useTitle from "../../Hooks/useTitle";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   useTitle("Register");
+
   const { createUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
@@ -24,7 +27,6 @@ const Register = () => {
     setError("");
 
     // Password validation
-
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters");
       return;
@@ -40,35 +42,35 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
+    try {
+      const result = await createUser(email, password);
+      const user = result.user;
 
-        updateProfile(user, {
-          displayName: name,
-          photoURL: photo,
-        });
-
-        toast.success("Account registered successfully");
-
-        navigate("/");
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          toast.error("This email already exists");
-        } else {
-          toast.error(error.message);
-        }
+      await updateProfile(user, {
+        displayName: name,
+        photoURL: photo,
       });
+
+      toast.success("Account registered successfully");
+      navigate("/");
+    } catch (err) {
+      if (err.code === "auth/email-already-in-use") {
+        toast.error("This email already exists");
+      } else {
+        toast.error(err.message || "Registration failed");
+      }
+      setError(err.message || "Registration failed");
+    }
   };
 
-  const handleGoogle = () => {
-    signInWithGoogle()
-      .then(() => {
-        toast.success("Google login successful");
-        navigate("/");
-      })
-      .catch((err) => toast.error(err.message));
+  const handleGoogle = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success("Google login successful");
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message || "Google sign-in failed");
+    }
   };
 
   return (
@@ -129,24 +131,34 @@ const Register = () => {
             </div>
 
             {/* Password */}
-            <div className="form-control flex flex-col">
+            <div className="form-control flex flex-col relative">
               <label htmlFor="password" className="label mb-1">
                 <span className="label-text text-white">Password</span>
               </label>
 
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Enter password"
-                className="input input-bordered bg-slate-800 text-white w-full"
+                className="input input-bordered bg-slate-800 text-white w-full pr-10"
                 required
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-[38px] text-lg text-white/80"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
 
-            {error && <p className="text-red-500">{error}</p>}
-
-            <button className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full">
+            {/* Register Button */}
+            <button
+              type="submit"
+              className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full"
+            >
               Register
             </button>
           </form>
@@ -154,10 +166,10 @@ const Register = () => {
           <div className="divider text-gray-400">OR</div>
 
           {/* Google Register */}
-
           <button
+            type="button"
             onClick={handleGoogle}
-            className="btn bg-white text-black w-full"
+            className="btn bg-white text-black w-full flex items-center justify-center gap-2"
           >
             <FcGoogle size={22} />
             Register with Google
@@ -172,6 +184,10 @@ const Register = () => {
               Login
             </Link>
           </p>
+
+          {error && (
+            <p className="text-sm text-red-400 text-center mt-2">{error}</p>
+          )}
         </div>
       </div>
     </div>
