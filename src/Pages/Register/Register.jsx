@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { updateProfile } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { createUser, signInWithGoogle } = useContext(AuthContext);
@@ -14,44 +15,60 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const form = e.target;
-
-    const name = form.name.value;
-    const email = form.email.value;
-    const photo = form.photo.value;
-    const password = form.password.value;
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photo = e.target.photo.value;
+    const password = e.target.password.value;
 
     setError("");
 
-    // Password Validation
+    // Password validation
 
     if (password.length < 6) {
-      return setError("Password must be at least 6 characters");
+      alert("Password must be at least 6 characters");
+      return;
     }
 
     if (!/[A-Z]/.test(password)) {
-      return setError("Password must contain an uppercase letter");
+      alert("Password must contain an uppercase letter");
+      return;
     }
 
     if (!/[a-z]/.test(password)) {
-      return setError("Password must contain a lowercase letter");
+      alert("Password must contain a lowercase letter");
+      return;
     }
 
     createUser(email, password)
       .then((result) => {
-        updateProfile(result.user, {
+        const user = result.user;
+
+        // Update profile
+        updateProfile(user, {
           displayName: name,
           photoURL: photo,
         });
 
+        toast.success("Account registered successfully");;
+
         navigate("/");
       })
-      .catch((err) => setError(err.message));
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+         toast.error("This email already exists");;
+        } else {
+          toast.error(error.message);
+        }
+      });
   };
 
   const handleGoogle = () => {
     signInWithGoogle()
-      .then(() => navigate("/"))
+      .then(() => {
+        toast.success("Google login successful");
+
+        navigate("/");
+      })
       .catch((err) => console.log(err));
   };
 
@@ -65,74 +82,71 @@ const Register = () => {
 
           <form onSubmit={handleRegister}>
             {/* Name */}
+            <form className="max-w-md mx-auto">
+              {/* Name */}
+              <div className="form-control mb-3 flex flex-col">
+                <label htmlFor="name" className="label block mb-1">
+                  <span className="label-text text-white">Name</span>
+                </label>
 
-             <form className="max-w-md mx-auto">
-      {/* Name */}
-      <div className="form-control mb-3 flex flex-col">
-        <label htmlFor="name" className="label block mb-1">
-          <span className="label-text text-white">Name</span>
-        </label>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  className="input input-bordered bg-slate-800 text-white w-full"
+                  required
+                />
+              </div>
 
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
+              {/* Email */}
+              <div className="form-control mb-3 flex flex-col">
+                <label htmlFor="email" className="label block mb-1">
+                  <span className="label-text text-white">Email</span>
+                </label>
 
-      {/* Email */}
-      <div className="form-control mb-3 flex flex-col">
-        <label htmlFor="email" className="label block mb-1">
-          <span className="label-text text-white">Email</span>
-        </label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  className="input input-bordered bg-slate-800 text-white w-full"
+                  required
+                />
+              </div>
 
-        <input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
+              {/* Photo URL */}
+              <div className="form-control mb-3 flex flex-col">
+                <label htmlFor="photo" className="label block mb-1">
+                  <span className="label-text text-white">Photo URL</span>
+                </label>
 
-      {/* Photo URL */}
-      <div className="form-control mb-3 flex flex-col">
-        <label htmlFor="photo" className="label block mb-1">
-          <span className="label-text text-white">Photo URL</span>
-        </label>
+                <input
+                  id="photo"
+                  type="text"
+                  name="photo"
+                  placeholder="Enter photo URL"
+                  className="input input-bordered bg-slate-800 text-white w-full"
+                  required
+                />
+              </div>
 
-        <input
-          id="photo"
-          type="text"
-          name="photo"
-          placeholder="Enter photo URL"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
+              {/* Password */}
+              <div className="form-control mb-3 flex flex-col">
+                <label htmlFor="password" className="label block mb-1">
+                  <span className="label-text text-white">Password</span>
+                </label>
 
-      {/* Password */}
-      <div className="form-control mb-3 flex flex-col">
-        <label htmlFor="password" className="label block mb-1">
-          <span className="label-text text-white">Password</span>
-        </label>
-
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
-
-      
-    </form>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  className="input input-bordered bg-slate-800 text-white w-full"
+                  required
+                />
+              </div>
+            </form>
 
             {error && <p className="text-red-500 mb-3">{error}</p>}
 
@@ -155,7 +169,10 @@ const Register = () => {
 
           <p className="text-center mt-4 text-gray-400">
             Already have an account?
-            <Link to="/auth/login" className="text-green-400 ml-2 font-semibold">
+            <Link
+              to="/auth/login"
+              className="text-green-400 ml-2 font-semibold"
+            >
               Login
             </Link>
           </p>

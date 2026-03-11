@@ -30,13 +30,14 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    signInWithGoogle()
-      .then(() => {
-        navigate(from);
-      })
-      .catch((err) => console.log(err));
-  };
+const handleGoogleLogin = () => {
+  signInWithGoogle()
+    .then(result => {
+      console.log(result.user);
+      navigate("/");
+    })
+    .catch(error => console.log(error));
+};
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-900 via-black to-slate-900">
