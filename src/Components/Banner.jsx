@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Banner = () => {
 
   const [games, setGames] = useState([]);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     fetch("/games.json")
@@ -10,21 +12,53 @@ const Banner = () => {
       .then(data => setGames(data));
   }, []);
 
+  // Auto slide
+  useEffect(() => {
+
+    if (games.length === 0) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+  }, [games, current]);
+
+  const nextSlide = () => {
+    setCurrent((prev) =>
+      prev === games.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) =>
+      prev === 0 ? games.length - 1 : prev - 1
+    );
+  };
+
+  if (games.length === 0) return null;
+
+  const game = games[current];
+
   return (
-    <div className="carousel w-full h-[420px] rounded-xl mt-10">
+    <div className="relative w-full h-[420px] rounded-xl mt-10 overflow-hidden">
 
-      {games.map((game, index) => (
+      <AnimatePresence mode="wait">
 
-        <div
-          key={game.id}
-          id={`slide${index}`}
-          className="carousel-item relative w-full"
+        <motion.div
+          key={current}
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "-100%" }}
+          transition={{ duration: 0.6 }}
+          className="absolute w-full h-full"
         >
 
           {/* Image */}
           <img
             src={game.coverPhoto}
-            className="w-full object-cover"
+            className="w-full h-full object-cover"
             alt={game.title}
           />
 
@@ -53,28 +87,25 @@ const Banner = () => {
 
           </div>
 
-          {/* Slider Buttons */}
-          <div className="absolute flex justify-between left-5 right-5 top-1/2">
+        </motion.div>
 
-            <a
-              href={`#slide${(index - 1 + games.length) % games.length}`}
-              className="btn btn-circle"
-            >
-              ❮
-            </a>
+      </AnimatePresence>
 
-            <a
-              href={`#slide${(index + 1) % games.length}`}
-              className="btn btn-circle"
-            >
-              ❯
-            </a>
+      {/* Left Button */}
+      <button
+        onClick={prevSlide}
+        className="btn btn-circle absolute left-5 top-1/2 -translate-y-1/2"
+      >
+        ❮
+      </button>
 
-          </div>
-
-        </div>
-
-      ))}
+      {/* Right Button */}
+      <button
+        onClick={nextSlide}
+        className="btn btn-circle absolute right-5 top-1/2 -translate-y-1/2"
+      >
+        ❯
+      </button>
 
     </div>
   );
