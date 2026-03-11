@@ -1,9 +1,13 @@
 import { createBrowserRouter } from "react-router";
+
 import MainLayout from "../Layouts/MainLayout";
-import Home from "../Pages/Home/Home";
 import AuthLayout from "../Layouts/AuthLayout";
+
+import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import NotFound from "../Pages/NotFound/NotFound";
+import TopGames from "../Pages/TopGames/TopGames";
 
 const router = createBrowserRouter([
   {
@@ -18,8 +22,13 @@ const router = createBrowserRouter([
         path: "games",
         element: <div>Games</div>,
       },
+      {
+        path: "top-games",
+        element: <TopGames />,
+      }
     ],
   },
+
   {
     path: "/auth",
     element: <AuthLayout />,
@@ -33,6 +42,11 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
