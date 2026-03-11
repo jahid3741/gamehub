@@ -1,98 +1,140 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
-import useTitle from "../../Hooks/useTitle";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  useTitle("Login");
+
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const from = location.state || "/";
-
-  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
+
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    setError("");
-
     signInUser(email, password)
       .then(() => {
-        navigate(from);
+
+        toast.success("Login successfully done");
+
+        navigate("/");
+
       })
-      .catch((err) => {
-        setError(err.message);
+      .catch((error) => {
+
+        toast.error(error.message);
+
       });
+
   };
 
-const handleGoogleLogin = () => {
-  signInWithGoogle()
-    .then(result => {
-      console.log(result.user);
-      navigate("/");
-    })
-    .catch(error => console.log(error));
-};
+  const handleGoogleLogin = () => {
+
+    signInWithGoogle()
+      .then(() => {
+
+        toast.success("Google login successful");
+
+        navigate("/");
+
+      })
+      .catch(error => toast.error(error.message));
+
+  };
+
+  const handleForgetPassword = () => {
+
+    toast.info("Password reset link will be sent to your email");
+
+  };
 
   return (
+
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-900 via-black to-slate-900">
-      <div className="card w-full max-w-md bg-slate-900 shadow-xl border border-gray-700">
+
+      <div className="card w-full max-w-md bg-slate-900 border border-gray-700 shadow-xl">
+
         <div className="card-body">
+
           <h2 className="text-3xl font-bold text-center text-green-400">
             Login
           </h2>
 
           <form onSubmit={handleLogin}>
+
             {/* Email */}
-             <form className="max-w-md mx-auto">
-      {/* Email */}
-      <div className="form-control mb-4 flex flex-col">
-        <label htmlFor="email" className="label block mb-1">
-          <span className="label-text text-white">Email</span>
-        </label>
 
-        <input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
+            <div className="form-control mb-4">
 
-      {/* Password */}
-      <div className="form-control mb-4 flex flex-col">
-        <label htmlFor="password" className="label block mb-1">
-          <span className="label-text text-white">Password</span>
-        </label>
+              <label className="label">
+                <span className="label-text text-white">Email</span>
+              </label>
 
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          className="input input-bordered bg-slate-800 text-white w-full"
-          required
-        />
-      </div>
-    </form>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="input input-bordered bg-slate-800 text-white"
+                required
+              />
 
-            {error && <p className="text-red-500 mb-3">{error}</p>}
+            </div>
+
+
+            {/* Password */}
+
+            <div className="form-control mb-2 relative">
+
+              <label className="label">
+                <span className="label-text text-white">Password</span>
+              </label>
+
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                className="input input-bordered bg-slate-800 text-white w-full"
+                required
+              />
+
+              {/* Eye Button */}
+
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-12 cursor-pointer text-xl"
+              >
+                👁
+              </span>
+
+            </div>
+
+            {/* Forgot Password */}
+
+            <p
+              onClick={handleForgetPassword}
+              className="text-sm text-blue-400 cursor-pointer mb-4"
+            >
+              Forgot Password?
+            </p>
 
             <button className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full">
               Login
             </button>
+
           </form>
 
-          <div className="divider text-gray-400">OR</div>
+
+          <div className="divider text-gray-400">
+            OR
+          </div>
+
 
           {/* Google Login */}
 
@@ -104,16 +146,28 @@ const handleGoogleLogin = () => {
             Continue with Google
           </button>
 
+
           <p className="text-center mt-4 text-gray-400">
+
             Don't have an account?
-            <Link to="/auth/register" className="text-green-400 ml-2 font-semibold">
+
+            <Link
+              to="/auth/register"
+              className="text-green-400 ml-2 font-semibold"
+            >
               Register
             </Link>
+
           </p>
+
         </div>
+
       </div>
+
     </div>
+
   );
+
 };
 
 export default Login;
