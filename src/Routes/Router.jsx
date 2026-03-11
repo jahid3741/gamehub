@@ -8,6 +8,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import NotFound from "../Pages/NotFound/NotFound";
 import TopGames from "../Pages/TopGames/TopGames";
+import Games from "../Pages/Games/Games";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "games",
-        element: <div>Games</div>,
+        element:<Games></Games>,
       },
       {
         path: "top-games",

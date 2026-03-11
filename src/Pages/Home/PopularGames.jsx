@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GameCard from "../../components/GameCard";
+import { motion } from "framer-motion";
 
 const PopularGames = () => {
 
@@ -10,7 +11,6 @@ const PopularGames = () => {
       .then(res => res.json())
       .then(data => {
 
-        // sort by ratings
         const sortedGames = data
           .sort((a, b) => b.ratings - a.ratings)
           .slice(0, 3);
@@ -30,14 +30,19 @@ const PopularGames = () => {
 
       <div className="grid md:grid-cols-3 gap-6">
 
-        {
-          games.map(game => (
-            <GameCard
-              key={game.id}
-              game={game}
-            />
-          ))
-        }
+        {games.map((game) => (
+
+          <motion.div
+            key={game.id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <GameCard game={game} />
+          </motion.div>
+
+        ))}
 
       </div>
 
