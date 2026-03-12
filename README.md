@@ -1,16 +1,87 @@
-# React + Vite
+🎮 GameHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GameHub is a gaming platform where users can explore popular games, view details, and manage their profiles. Users can register, log in, and update their information securely using Firebase Authentication.
 
-Currently, two official plugins are available:
+🚀 Live Website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 https://gamhub-jahid.netlify.app/
 
-## React Compiler
+✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+User authentication (Email & Password, Google Login)
 
-## Expanding the ESLint configuration
+Private routes for protected pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+View detailed information about games
+
+Update profile (name & photo URL)
+
+Forgot password functionality
+
+Gaming-themed UI design
+
+Newsletter subscription with validation
+
+Responsive design for all devices
+
+🛠 Technologies Used
+
+React
+
+React Router
+
+Firebase Authentication
+
+Tailwind CSS
+
+DaisyUI
+
+React Icons
+
+React Toastify
+
+Framer Motion
+
+📦 NPM Packages Used
+
+firebase
+
+react-router-dom
+
+react-icons
+
+react-toastify
+
+framer-motion
+
+daisyui
+
+tailwindcss
+
+⚙️ Environment Variables
+
+Create a .env file and add:
+
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+📂 Project Setup
+
+Install dependencies:
+
+npm install
+
+Run development server:
+
+npm run dev
+
+Build production version:
+
+npm run build
+👨‍💻 Author
+
+Jahid
+Frontend Developer
