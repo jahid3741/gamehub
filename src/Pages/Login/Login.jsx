@@ -6,12 +6,10 @@ import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
@@ -23,7 +21,6 @@ const Login = () => {
     signInUser(email, password)
       .then(() => {
         toast.success("Login successfully done");
-
         navigate("/");
       })
       .catch((error) => {
@@ -35,14 +32,9 @@ const Login = () => {
     signInWithGoogle()
       .then(() => {
         toast.success("Google login successful");
-
         navigate("/");
       })
       .catch((error) => toast.error(error.message));
-  };
-
-  const handleForgetPassword = () => {
-    toast.info("Password reset link will be sent to your email");
   };
 
   return (
@@ -56,23 +48,21 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             {/* Email */}
 
-            
+            <div className="form-control mb-2 flex flex-col">
+              <label className="label mb-1">
+                <span className="label-text text-white">Email</span>
+              </label>
 
-<div className="form-control mb-2 flex flex-col">
-  <label className="label mb-1">
-    <span className="label-text text-white">Email</span>
-  </label>
-
-  <input
-    type="email"
-    name="email"
-    placeholder="Enter your email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    className="input input-bordered bg-slate-800 text-white w-full"
-    required
-  />
-</div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input input-bordered bg-slate-800 text-white w-full"
+                required
+              />
+            </div>
 
             {/* Password */}
 
@@ -89,7 +79,6 @@ const Login = () => {
                 required
               />
 
-              {/* Eye Icon */}
               <span
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-[38px] cursor-pointer text-xl"
@@ -107,13 +96,18 @@ const Login = () => {
             >
               Forgot Password?
             </Link>
+
+            {/* Login Button */}
+
+            <button
+              type="submit"
+              className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full mt-4"
+            >
+              Login
+            </button>
           </form>
-                    <button className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full mt-4">
-            Login
-          </button>
 
           <div className="divider text-gray-400">OR</div>
-
 
           {/* Google Login */}
 

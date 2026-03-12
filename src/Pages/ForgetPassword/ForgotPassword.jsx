@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import app from "../../Firebase/Firebase.config";
