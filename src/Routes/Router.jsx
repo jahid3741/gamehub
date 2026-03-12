@@ -11,6 +11,7 @@ import TopGames from "../Pages/TopGames/TopGames";
 import Games from "../Pages/Games/Games";
 import GameDetails from "../Pages/GameDetails/GameDetails";
 import PrivateRoute from "./PrivateRoute";
+import ForgotPassword from "../Pages/ForgetPassword/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -23,12 +24,12 @@ const router = createBrowserRouter([
       },
       {
         path: "games",
-        element:<Games></Games>,
+        element: <Games></Games>,
       },
       {
         path: "top-games",
         element: <TopGames />,
-      }
+      },
     ],
   },
 
@@ -47,25 +48,23 @@ const router = createBrowserRouter([
     ],
   },
   {
-  path: "game/:id",
-  element: (
-    <PrivateRoute>
-      <GameDetails />
-    </PrivateRoute>
-  ),
-  loader: async ({ params }) => {
+    path: "game/:id",
+    element: (
+      <PrivateRoute>
+        <GameDetails />
+      </PrivateRoute>
+    ),
+    loader: async ({ params }) => {
+      const res = await fetch("/games.json");
+      const data = await res.json();
 
-    const res = await fetch("/games.json");
-    const data = await res.json();
-
-    return data.find(game => game.id === params.id);
-
-  }
-},
-{
-  path: "/auth/forget-password",
-  element: <ForgetPassword></ForgetPassword>
-},
+      return data.find((game) => game.id === params.id);
+    },
+  },
+  {
+    path: "/auth/forgot-password",
+    element: <ForgotPassword></ForgotPassword>,
+  },
 
   {
     path: "*",

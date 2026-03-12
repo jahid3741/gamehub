@@ -56,21 +56,23 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             {/* Email */}
 
-            <div className="form-control mb-4 flex flex-col">
-              <label className="label mb-1">
-                <span className="label-text text-white">Email</span>
-              </label>
+            
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input input-bordered bg-slate-800 text-white"
-                required
-              />
-            </div>
+<div className="form-control mb-2 flex flex-col">
+  <label className="label mb-1">
+    <span className="label-text text-white">Email</span>
+  </label>
+
+  <input
+    type="email"
+    name="email"
+    placeholder="Enter your email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="input input-bordered bg-slate-800 text-white w-full"
+    required
+  />
+</div>
 
             {/* Password */}
 
@@ -106,8 +108,12 @@ const Login = () => {
               Forgot Password?
             </Link>
           </form>
+                    <button className="btn bg-green-500 hover:bg-green-400 border-none text-black w-full mt-4">
+            Login
+          </button>
 
           <div className="divider text-gray-400">OR</div>
+
 
           {/* Google Login */}
 
