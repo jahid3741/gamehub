@@ -1,32 +1,45 @@
-import { Link, Navigate, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
+
 const Navbar = () => {
 
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
- const handleLogout = () => {
+  const handleLogout = () => {
 
-  logOut()
-    .then(() => {
+    logOut()
+      .then(() => {
 
-      toast.success("Logout done successfully");
+        toast.success("Logout done successfully");
+        navigate("/");
 
-      Navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
 
-    })
-    .catch((error) => {
-      toast.error(error.message);
-    });
-
-};
+  };
 
   const links = (
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/games">Games</NavLink></li>
-      <li><NavLink to="/top-games">Top Games</NavLink></li>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/games">Games</NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/top-games">Top Games</NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/my-profile">My Profile</NavLink>
+      </li>
     </>
   );
 
@@ -37,6 +50,7 @@ const Navbar = () => {
       <div className="navbar-start">
 
         <div className="dropdown">
+
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             ☰
           </div>
@@ -47,6 +61,7 @@ const Navbar = () => {
           >
             {links}
           </ul>
+
         </div>
 
         <Link to="/" className="text-xl font-bold">
@@ -65,42 +80,40 @@ const Navbar = () => {
       {/* Right */}
       <div className="navbar-end gap-3">
 
-        {
-          user ? (
-            <>
-              <Link to="/profile">
-                <img
-                  src={user.photoURL}
-                  alt=""
-                  className="w-10 h-10 rounded-full"
-                />
-              </Link>
+        {user ? (
+          <>
+            <Link to="/my-profile">
 
-              <button
-                onClick={handleLogout}
-                className="btn btn-primary"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/auth/login"
-                className="btn btn-outline"
-              >
-                Login
-              </Link>
+              <img
+                src={
+                  user?.photoURL
+                    ? user.photoURL
+                    : "https://i.ibb.co/4pDNDk1/avatar.png"
+                }
+                alt="profile"
+                className="w-10 h-10 rounded-full object-cover border"
+              />
 
-              <Link
-                to="/auth/register"
-                className="btn btn-primary"
-              >
-                Register
-              </Link>
-            </>
-          )
-        }
+            </Link>
+
+            <button
+              onClick={handleLogout}
+              className="btn btn-primary"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/auth/login" className="btn btn-outline">
+              Login
+            </Link>
+
+            <Link to="/auth/register" className="btn btn-primary">
+              Register
+            </Link>
+          </>
+        )}
 
       </div>
 

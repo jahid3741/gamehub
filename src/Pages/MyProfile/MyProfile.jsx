@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import useTitle from "../../Hooks/useTitle";
 
 const MyProfile = () => {
@@ -36,6 +36,9 @@ const MyProfile = () => {
             className="btn btn-primary mt-4"
           >
             Update Information
+          </Link>
+          <Link className="btn btn secondary w-full" to={"/"}> 
+          Home
           </Link>
 
         </div>
