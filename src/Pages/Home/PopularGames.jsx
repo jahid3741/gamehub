@@ -24,7 +24,9 @@ const PopularGames = () => {
 
   return (
     <div className="my-16">
-      <h2 className="text-3xl font-bold text-center mb-10">Popular Games</h2>
+      <h2 className="text-4xl font-bold text-center text-primary drop-shadow-lg mb-5">
+        Popular Games
+      </h2>
 
       {/* Use motion layout to animate grid reflow when showing all / less */}
       <motion.div className="grid md:grid-cols-3 gap-6" layout>

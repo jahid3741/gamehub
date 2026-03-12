@@ -13,7 +13,8 @@ const GameCard = ({ game }) => {
 
   return (
 
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-200 shadow-xl border border-gray-700
+hover:scale-105 hover:border-primary transition-all duration-300">
 
       <figure>
         <img
