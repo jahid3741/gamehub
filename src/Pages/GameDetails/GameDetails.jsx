@@ -20,7 +20,7 @@ const GameDetails = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
+      
     <div className="min-h-screen w-11/12 mx-auto py-10 text-white">
       <div className="card bg-slate-900 shadow-xl border border-gray-700">
         <figure>
@@ -51,7 +51,7 @@ const GameDetails = () => {
         </div>
       </div>
     </div>
-    <Footer></Footer>
+
     </div>
   );
 };
